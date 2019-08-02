@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>yang | Jane</title>
+		<meta name="description" content="">
+		<meta name="洋芋 杨玉印 个人网站 bootstrap" content="文章">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/zerogrid.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/style1.css">
+		<link href="css/responsive.css" rel="stylesheet">
+
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="for-sticky">
+				<!--LOGO-->
+				<div class="col-md-2 col-xs-6 logo">
+					<a href="index.html"><img alt="logo" class="logo-nav" src="images/logo.png"></a>
+				</div>
+				<!--/.LOGO END-->
+			</div>
+			<div class="menu-wrap">
+				<nav class="menu">
+					<div class="menu-list">
+						<a data-scroll="" href="index.html" class="active">
+							<span>Home</span>
+						</a>
+						<a data-scroll="" href="blog.html">
+							<span>Blog</span>
+						</a>
+
+						<a data-scroll="" href="article.html">
+							<span>single</span>
+						</a>
+						<a data-scroll="" href="#article1">
+							<span>single1</span>
+						</a>
+					</div>
+				</nav>
+				<button class="close-button" id="close-button">Close Menu</button>
+			</div>
+			<button class="menu-button" id="open-button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+			<!--/.for-sticky-->
+		</div>
+
+		<header class="">
+			<div class="logo">
+				<a href="#"><img src="images/logo.png" /></a>
+			</div>
+		</header>
+		<!--////////////////////////////////////Container-->
+		<section id="container">
+			<div class="wrap-container">
+				<!-----------------Content-Box-------------------->
+				<article class="post zerogrid">
+					<div class="row wrap-post">
+						<!--Start Box-->
+						<div class="entry-header">
+							<span class="time">8, 8, 2017</span>
+							<h2 class="entry-title"><a href="#">Laravel 之父：让 Laravel、Symfony、 Zend 来一场公平的性能测试</a></h2>
+							<span class="cat-links"><a href="#">作者</a>, <a href="#">王赛</a></span>
+						</div>
+
+						<div class="entry-content">
+							<div class="excerpt">
+								<p>
+									今天， Taylor Otwell 在 Laracon US 开发者大会上就 Laravel 5.3 的新特性作了长时间的演讲，演讲内容主要概括为四个方面：Laravel Scout、Laravel Passport、Laravel Mailable 和 Laravel Notifications。
+
+								 </p>
+<p>
+	此次演讲预定是 90 分钟，Taylor 没浪费一秒钟，以最快的速度概括了上述四个主要方面的内容。下面就来逐个看一看每个新特性吧
+</p><p><strong><em>Laravel Scout:</em>
+	
+</strong></p>
+<p>
+	Laravel Scout 是针对 Eloquent 开发的基于驱动的全文搜索系统。自身集成了对 Algolia 的支持，由于它是基于驱动运行的，实际上你可以通过它集成任何其它全文搜索引擎。
+</p>
+							<blockquote><code>php artisan scout:import App\\Post</code></blockquote>	
+								
+								<p>
+									之后就可以通过以下方式进行搜索：
+								</p>
+								<blockquote><code>Post::search('Alice')->get();</code></blockquote>
+								<p>还支持简单的 where 条件语句：</p>
+								<blockquote><code>Post::search(‘Alice’)—>where('acount_id', '>', 1)->paginate()</code></blockquote>
+								<h1><strong><em>Laravel Mailable</em></strong></h1>
+								<p>设Laravel Mailable 是一个新的 Mail 类，通过一种更加优雅的方式发送邮件：
+								</p>
+								<blockquote><code>Mail::to('laravel@example.com')->send(new OrderComplete);</code></blockquote>	
+								<p>
+									当然，还支持其他所有邮件功能：
+								</p>
+								<blockquote><code>Mail::to('laravel@example.com')->cc('john@example.com')->queue(new OrderComplete);</code></blockquote>
+								<h1><strong><em>Laravel Notifications</em></strong></h1>
+								
+								<p>
+									Notifications 附带了一个响应式邮件模板，通知类中唯一需要做的就是像下面这样发送消息：</p>
+								<p>
+									<code>
+		$this->line('Thank you for joining')
+    ->action('Button Text', 'http://url.com')
+    ->line('If you have any questions please hit reply')
+    ->success()
+	</code>
+								</p>
+<p><strong>错误处理</strong></p>
+<blockquote><code>$this->line('Sorry we had a problem with your order')
+    ->action('Button Text', 'http://url.com')
+    ->error()</code></blockquote>
+								<h1><strong><em>Laravel Passport</em></strong></h1>
+								<p>Laravel Passport 是一个可选的扩展包，提供了完整可用的 oAuth 2 服务。</p>
+								<p>
+									你可以自己设置 scope、Vue.js 模块以便执行生成、撤回 token 等操作。
+								</p>
+						
+							</div>
+						</div>
+					</div>
+
+				</article>
+			</div>
+		</section>
+		<!--////////////////////////////////////Footer-->
+		<footer>
+
+			<div class="zerogrid copyright">
+				<div class="wrapper">
+					Copyright &copy; 2017.Company name All rights reserved.
+					<a target="_blank" href="http://www.smallseashell.com/">贝壳模板</a>
+					<ul class="quick-link f-right">
+						<li>
+							<a href="#">Privacy Policy</a>
+						</li>
+						<li>
+							<a href="#">Terms of Use</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+		<!-- carousel -->
+		<script src="../js/jquery.js" type="text/javascript"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="js/classie.min.js" type="text/javascript"></script>
+		<script src="js/owl.carousel.min.js" type="text/javascript"></script>
+		<script src="js/typed.min.js" type="text/javascript"></script>
+		<script src="js/main.js" type="text/javascript"></script>
+		<script>
+			$(document).ready(function() {
+				$("#owl-slide").owlCarousel({
+					autoPlay: 3000,
+					items: 2,
+					itemsDesktop: [1199, 2],
+					itemsDesktopSmall: [979, 1],
+					itemsTablet: [768, 1],
+					itemsMobile: [479, 1],
+					navigation: true,
+					navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],
+					pagination: false
+				});
+			});
+		</script>
+<script type="text/javascript">
+			(function() {
+				var coreSocialistValues = ["images/3.png", "images/4.png", "images/2.png","images/1.png","images/5.png","images/6.png","images/7.png","images/8.png","images/9.png","images/10.png","images/11.png"],
+					index = Math.floor(Math.random() * coreSocialistValues.length);
+				document.body.addEventListener('click', function(e) {
+					if(e.target.tagName == 'A') {
+						return;
+					}
+					var x = e.pageX,
+						y = e.pageY,
+						img = document.createElement('img');
+					img.src = coreSocialistValues[index];
+					index = (index + 1) % coreSocialistValues.length;
+					img.style.cssText = ['z-index: 9999999; position: absolute; font-weight: bold; color: #ff6651; top: ', y - 20, 'px; left: ', x, 'px;'].join('');
+					document.body.appendChild(img);
+					animate(img);
+				});
+
+				function animate(el) {
+					var i = 0,
+						top = parseInt(el.style.top),
+						id = setInterval(frame, 16.7);
+
+					function frame() {
+						if(i > 180) {
+							clearInterval(id);
+							el.parentNode.removeChild(el);
+						} else {
+							i += 2;
+							el.style.top = top - i + 'px';
+							el.style.opacity = (180 - i) / 180;
+						}
+					}
+				}
+			}());
+		</script>
+	</body>
+
+</html>

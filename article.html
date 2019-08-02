@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>yang | Jane</title>
+		<meta name="description" content="">
+		<meta name="洋芋 杨玉印 个人网站 bootstrap" content="文章">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link href="css/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/zerogrid.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/style1.css">
+		<link href="css/responsive.css" rel="stylesheet">
+
+	</head>
+
+	<body>
+		<div class="header">
+			<div class="for-sticky">
+				<!--LOGO-->
+				<div class="col-md-2 col-xs-6 logo">
+					<a href="index.html"><img alt="logo" class="logo-nav" src="images/logo.png"></a>
+				</div>
+				<!--/.LOGO END-->
+			</div>
+			<div class="menu-wrap">
+				<nav class="menu">
+					<div class="menu-list">
+						<a data-scroll="" href="index.html" class="active">
+							<span>Home</span>
+						</a>
+						<a data-scroll="" href="blog.html">
+							<span>Blog</span>
+						</a>
+
+						<a data-scroll="" href="#article">
+							<span>single</span>
+						</a>
+						<a data-scroll="" href="article1.html">
+							<span>single</span>
+						</a>
+					</div>
+				</nav>
+				<button class="close-button" id="close-button">Close Menu</button>
+			</div>
+			<button class="menu-button" id="open-button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+			<!--/.for-sticky-->
+		</div>
+
+		<header class="">
+			<div class="logo">
+				<a href="#"><img src="images/logo.png" /></a>
+			</div>
+		</header>
+		<!--////////////////////////////////////Container-->
+		<section id="container">
+			<div class="wrap-container">
+				<!-----------------Content-Box-------------------->
+				<article class="post zerogrid">
+					<div class="row wrap-post">
+						<!--Start Box-->
+						<div class="entry-header">
+							<span class="time">8, 8, 2017</span>
+							<h2 class="entry-title"><a href="#">Laravel 之父：让 Laravel、Symfony、 Zend 来一场公平的性能测试</a></h2>
+							<span class="cat-links"><a href="#">作者</a>, <a href="#">王赛</a></span>
+						</div>
+
+						<div class="entry-content">
+							<div class="excerpt">
+								<p>
+									网上充斥着各式各样的 PHP 框架性能对比的文章。然而，他们总是把“苹果”和“橘子”做对比（看上去有点儿像，都是圆的，但其实不是一码事）。这次，我将着重对 Laravel、Symfony 和 Zend 这三个框架做性能对比，并且还要说明为什么这三个框架总是被错误的进行比较。 我给的对比结果你不必全信。读完这篇文章之后，你可以自己搞一个 2GB 的 DigitalOcean 的服务器亲自去检验一下，也就 5 分钟而已。 开始之前，我希望你知道：所有这些框架都足够快，都可以满足你构建任何应用。写这篇文章之前我也犹豫过，我认为做这种层次的对比其实真的挺傻的。我唯一的目的是展示如何在三个框架之间进行公平的比较。
+
+									<strong style="font-size: 20px;">问题的源头
+当你在一台全新的 DigitalOcean 服务器上配置 Symfony 或 Zend 项目时，你会发现返回的 http 响应是没有 session 信息的。注意，看下图，cookie 并没有被返回：
+					</strong> </p>
+
+								<blockquote><img src="images/12.png" /></blockquote>
+								<p>
+									然而，Laravel 默认是开启 session 的（另外还有一些中间件）。这样能让基于 Laravel 构建的应用很方便地利用 session 机制将用户状态持久化保存。为了 Laravel 框架的用户更方便而默认开启 session 反倒让 Laravel 在性能对比中很受伤。
+								</p>
+								<blockquote><img src="images/13.png" /></blockquote>
+								另一个常见错误是：要么没有倒出一份优化过的 Composer autoloader ；要么没有用<code>php artisan config:cache</code> 指令缓存 Laravel 配置信息 -- 这份缓存能够大幅度减少 Laravel 的启动（bootstrap）时间。
+								<h1>设置环境</h1>
+								<p>设置环境 首先，我通过 Laravel Forge 在 DiginalOcean 上创建了一个 2GB 内存的服务器，安装的是 PHP 7.1 版本。然后安装 Symfony ，优化 Composer autoloader ，配置 Nginx 通过生产环境下的前端控制器（app.php）运行。并且我还按照 Symfony 生产环境调优指南一步步设置到位。对于 Zend 的配置也类似。 接下来，针对 PHP 7.1 的 opcache 设置如下（生产环境）： opcache.enable=1 opcache.memory_consumption=512 opcache.interned_strings_buffer=64 opcache.max_accelerated_files=20000 opcache.validate_timestamps=0 opcache.save_comments=1 opcache.fast_shutdown=1
+								</p>
+								<p>安装 Laravel 时，执行,<code>config:cache Artisan </code> 指令，并且在 <code>app/Http/Kernel.php</code> 文件中将<code> web</code> 中间件组注释掉（这些中间件的作用就是让 Laravel 支持 session）。做完上述修改之后就可以让三个框架都在无 session 支持的状态下进行对比了。.</p>
+								<h2> <strong> 对比结果</strong></h2>
+								<p>
+									After configuring the projects, I ran a simple test using Apache benchmark, which anyone can recreate:</p>
+
+								<p>三个框架都能正常运行后，终于可以祭出 Apache benchmark 来做简单的测试了。其实任何人都可以很容易地复现这一测试：</p>
+								<p>
+									<code>
+		ab -t 10 -c 10 [http://server.address/]
+	</code>
+								</p>
+
+								<h2>
+									<strong>下面是测试结果</strong>
+									<br /><br />
+								</h2>
+								
+								<div >
+									<h3>
+									&nbsp;<strong><em>无Session:</em></strong>
+								</h3>
+									<ol>
+								<li><strong>Laravel:</strong>609.03 次请求／秒 (平均值)</li>
+								<li><strong>Zend:</strong> 559.91 次请求／秒 (平均值)</li>
+								<li><strong>Symfony</strong>532.97 次请求／秒 (平均值)</li>
+								</ol>
+								</div>
+								
+								
+								<div>
+									<h3>
+									&nbsp;<strong><em>有 Session:</em></strong>
+								</h3>
+									<ol>
+								<li><strong>Laravel:</strong>609.03 次请求／秒 (平均值)</li>
+								<li><strong>Zend:</strong> 559.91 次请求／秒 (平均值)</li>
+								<li><strong>Symfony</strong>532.97 次请求／秒 (平均值)</li>
+								</ol>
+								</div>
+								
+							
+							</div>
+						</div>
+					</div>
+
+				</article>
+			</div>
+		</section>
+		<!--////////////////////////////////////Footer-->
+		<footer>
+
+			<div class="zerogrid copyright">
+				<div class="wrapper">
+					Copyright &copy; 2017.Company name All rights reserved.
+					<a target="_blank" href="http://www.smallseashell.com/">贝壳模板</a>
+					<ul class="quick-link f-right">
+						<li>
+							<a href="#">Privacy Policy</a>
+						</li>
+						<li>
+							<a href="#">Terms of Use</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+		<!-- carousel -->
+		<script src="../js/jquery.js" type="text/javascript"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="js/classie.min.js" type="text/javascript"></script>
+<script src="js/typed.min.js" type="text/javascript"></script>
+		<script src="js/main.js" type="text/javascript"></script>
+		<script>
+			$(document).ready(function() {
+				$("#owl-slide").owlCarousel({
+					autoPlay: 3000,
+					items: 2,
+					itemsDesktop: [1199, 2],
+					itemsDesktopSmall: [979, 1],
+					itemsTablet: [768, 1],
+					itemsMobile: [479, 1],
+					navigation: true,
+					navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],
+					pagination: false
+				});
+			});
+		</script>
+		<script type="text/javascript">
+			(function() {
+				var coreSocialistValues = ["images/3.png", "images/4.png", "images/2.png","images/1.png","images/5.png","images/6.png","images/7.png","images/8.png","images/9.png","images/10.png","images/11.png"],
+					index = Math.floor(Math.random() * coreSocialistValues.length);
+				document.body.addEventListener('click', function(e) {
+					if(e.target.tagName == 'A') {
+						return;
+					}
+					var x = e.pageX,
+						y = e.pageY,
+						img = document.createElement('img');
+					img.src = coreSocialistValues[index];
+					index = (index + 1) % coreSocialistValues.length;
+					img.style.cssText = ['z-index: 9999999; position: absolute; font-weight: bold; color: #ff6651; top: ', y - 20, 'px; left: ', x, 'px;'].join('');
+					document.body.appendChild(img);
+					animate(img);
+				});
+
+				function animate(el) {
+					var i = 0,
+						top = parseInt(el.style.top),
+						id = setInterval(frame, 16.7);
+
+					function frame() {
+						if(i > 180) {
+							clearInterval(id);
+							el.parentNode.removeChild(el);
+						} else {
+							i += 2;
+							el.style.top = top - i + 'px';
+							el.style.opacity = (180 - i) / 180;
+						}
+					}
+				}
+			}());
+		</script>
+
+	</body>
+
+</html>
